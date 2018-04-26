@@ -135,39 +135,39 @@ xgb.importance(var.names, model = IrisSpecies) # which variables were most impor
 
 
 
-# predict for the first row of the test dataset
 
+# gather all predictions from boosted model
 
-calculate_xgb_preds<-
-function(x,var.levels,PredModel,testData){
-
-
-    n = seq(1,length(testdata[,1]))
-  
-    for( i in n){ 
-      
-        row<- as.matrix(testData[i,]) # snag a row
-        Preds <- predict(PredModel, newdata = row) # calculate prediction
-        
-        
-        PredTable<-            # build a table for predicted data
-              data.frame(
-                
-                 x = var.levels
-                ,Preds
-                
-              )%>%
-              mutate(predID = i)%>%
-              spread(x, Preds)
-        
-    
-    }
-
-}
-
-
-
-calculate_xgb_preds(x,var.levels,PredModel,testData) # test FUNCTION!!!!!!! You DINGDONG
+# calculate_xgb_preds<-
+# function(x,var.levels,PredModel,testData){
+# 
+# 
+#     n = seq(1,length(testdata[,1]))
+#   
+#     for( i in n){ 
+#       
+#         row<- as.matrix(testData[i,]) # snag a row
+#         Preds <- predict(PredModel, newdata = row) # calculate prediction
+#         
+#         
+#         PredTable<-            # build a table for predicted data
+#               data.frame(
+#                 
+#                  x = var.levels
+#                 ,Preds
+#                 
+#               )%>%
+#               mutate(predID = i)%>%
+#               spread(x, Preds)
+#         
+#     
+#     }
+# 
+# }
+# 
+# 
+# 
+# calculate_xgb_preds(x,var.levels,PredModel,testData) # test FUNCTION!!!!!!! You DINGDONG
 
 
 
