@@ -1,3 +1,4 @@
+
 # Define UI for application that draws a histogram
 shinyUI(fluidPage(
   
@@ -56,8 +57,10 @@ shinyUI(fluidPage(
                                 
                                         # Output: Tabset w/ plot, summary, and table ----
                                         tabsetPanel(type = "tabs",
-                                                    tabPanel("Plot",plotOutput("irisPlot")),
-                                                    tabPanel("Table")
+                                                    tabPanel("Plot",plotOutput("irisPlot"),
+                                                                    br(),
+                                                                    dataTableOutput("predTable")),
+                                                    tabPanel("Data",DTOutput("data"))
                                         )
                                 
                                     
