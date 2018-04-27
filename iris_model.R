@@ -188,6 +188,35 @@ P<-calculate_xgb_preds(var.levels,IrisSpecies,testData=Test[,-c(5,6)]) # test FU
 
 
 
+a<-
+  data.frame(
+    
+    Sepal.Length = 5.3
+    ,Sepal.Width = 3
+    
+  )
+
+
+ggplot(iris, aes(x=iris[['Sepal.Length']], y=iris[['Sepal.Width']], color=Species))+
+  geom_point(size=4)+
+  geom_point(data=a, aes(x=a[['Sepal.Length']], y=a[['Sepal.Width']]), color='red',size=4)+
+  ggtitle('Iris data')+
+  theme_classic()+
+  theme(
+    text = element_text(size = 14,face='bold')
+  )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

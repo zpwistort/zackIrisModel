@@ -5,35 +5,35 @@ shinyServer(function(input, output) {
   
 
   
+  slides<-reactive({
+  
+              data.frame(
+                
+                Sepal.Length = input$Sepal.Length
+                ,Sepal.Width = input$Sepal.Width
+                ,Petal.Length = input$Petal.Length
+                ,Petal.Width = input$Petal.Width
+                
+              )
+  })
   
   
   predTable<-reactive({
-    
-        a<-
-        data.frame(
-
-                    Sepal.Length = input$Sepal.Length
-                   ,Sepal.Width = input$Sepal.Width
-                   ,Petal.Length = input$Petal.Length
-                   ,Petal.Width = input$Petal.Width
-                   
-                 )
         
         
-        Preds <- predict(Iris.model, newdata = as.matrix(a)) # calculate prediction
+        Preds <- predict(Iris.model, newdata = as.matrix(slides())) # calculate prediction
         
         
-        PredTable<-            # build a table for predicted data
-                  data.frame(
+           a<-        # build a table for predicted data
+            data.frame(
                     
-                    x = var.levels
-                    ,Preds=round(Preds,2)
+                x = var.levels
+                ,Preds=round(Preds,3)
                     
-                  )%>%
-                  spread(x, Preds)
+              )%>%
+              spread(x, Preds)
         
-        
-        a<-cbind(a,PredTable)
+      return(a)
     
 
     
@@ -42,14 +42,10 @@ shinyServer(function(input, output) {
   
   output$irisPlot <- renderPlot({
     
-    # generate bins based on input$bins from ui.R
-    # x    <- faithful[, 2] 
-    # bins <- seq(min(x), max(x), length.out = input$bins + 1)
-    
-    # draw the histogram with the specified number of bins
+
     ggplot(iris, aes(x=iris[[input$xcol]], y=iris[[input$ycol]], color=Species))+
       geom_point(size=4)+
-      # geom_point()
+      geom_point(data=slides(), aes(x=slides()[[input$xcol]], y=slides()[[input$ycol]]), color='red',size=4)+
       ggtitle('Iris data')+
       xlab(input$xcol)+
       ylab(input$ycol)+
@@ -58,14 +54,54 @@ shinyServer(function(input, output) {
         text = element_text(size = 14,face='bold')
       )
     
+    
   })
   
-  output$data <- renderDT(iris)
+  output$data <- renderDT(iris, options = list(scrollX = TRUE))
   
-  output$predTable <- renderDataTable(predTable(), options = list(autoWidth=TRUE,
-                                                                  columnDefs = list(list(className = 'dt-center', targets = 0:7))))
+  output$table <- renderDataTable(predTable(),
+                                  class = 'cell-border stripe', 
+                                  rownames = FALSE,
+                                  colnames = c('Setosa' = 'setosa',
+                                               'Virginica' = 'virginica',
+                                               'Versicolor' = 'versicolor'),
+                                  options = list(autoWidth=TRUE,
+                                                 columnDefs = list(list(className = 'dt-center', targets = 0:2)),
+                                                 paging = FALSE,
+                                                 searching = FALSE))
 
   
   
     
 })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+p<-
+ggplot(iris, aes(x=Sepal.Length))+
+  geom_density(aes(fill= Species))
+
+
+ggsave('test',plot=p,device=pdf)
+
+
+
+
+
+
+
+
+

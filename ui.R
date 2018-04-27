@@ -51,16 +51,18 @@ shinyUI(fluidPage(
 
                                     ),
                       
-                      # Show a plot of the generated distribution
+                      # Show a plot of the generated points
                                     mainPanel(
                                       
                                 
                                         # Output: Tabset w/ plot, summary, and table ----
                                         tabsetPanel(type = "tabs",
-                                                    tabPanel("Plot",plotOutput("irisPlot"),
+                                                    tabPanel("Plot",br(),
+                                                                    plotOutput("irisPlot"),
                                                                     br(),
-                                                                    dataTableOutput("predTable")),
-                                                    tabPanel("Data",DTOutput("data"))
+                                                                    dataTableOutput("table")),
+                                                    tabPanel("Data",br(),
+                                                                    DTOutput("data"))
                                         )
                                 
                                     
