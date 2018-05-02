@@ -43,6 +43,7 @@ random_sample<-
   }
 
 
+cols<- c("#a6cee3", "#1f78b4", "#b2df8a") # colors for project
 
 if(!exists("Iris.model")){
   
@@ -68,7 +69,7 @@ if(!exists("Iris.model")){
   )
   
   # set round limit
-  cv.nround=2000
+  cv.nround=600
   
   
   # run gradient model
