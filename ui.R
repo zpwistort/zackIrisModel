@@ -77,6 +77,9 @@ shinyUI(fluidPage(
                                                                     fluidRow(column(width=6, plotOutput('densityPlot1')),
                                                                              column(width=6, plotOutput('densityPlot2'))),
                                                                     br(),
+                                                                    fluidRow(column(width=6,plotOutput('densityPlot3')),
+                                                                             column(width=6,plotOutput('densityPlot4'))),
+                                                                    br(),
                                                                     fluidRow(column(width=12,plotOutput("importancePlot"))))
                                                     
                                                     ,tabPanel("Data",br(),

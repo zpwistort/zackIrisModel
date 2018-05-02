@@ -114,30 +114,68 @@ shinyServer(function(input, output){
 
   output$densityPlot1 <- renderPlot({
     
-    ggplot(iris,aes(x=iris[[input$xcol]]))+
+    ggplot(iris,aes(x=Sepal.Length))+
       geom_density(aes(fill=Species),alpha=0.5)+
-      ggtitle('X Variable density plot')+
+      geom_vline(aes(xintercept=input$Sepal.Length),color='red',size=2)+
+      ggtitle('Sepal Length')+
       ylab('Density')+
-      xlab(input$xcol)+
+      xlab('Sepal Length')+
       scale_fill_manual(values=cols,labels=c('Setosa','Verisicolor','Virginica'))+
       theme_classic()+
       theme(
-        text = element_text(size = 14, face='bold')
+        text = element_text(size = 14, face='bold'),
+        legend.position = ''
       )
-  
+    
   })
   
   output$densityPlot2 <- renderPlot({
     
-    ggplot(iris,aes(x=iris[[input$ycol]]))+
+    ggplot(iris,aes(x=Sepal.Width))+
       geom_density(aes(fill=Species),alpha=0.5)+
-      ggtitle('Y Variable density plot')+
+      geom_vline(aes(xintercept=input$Sepal.Width),color='red',size=2)+
+      ggtitle('Sepal Width')+
       ylab('Density')+
-      xlab(input$ycol)+
+      xlab('Sepal Width')+
       scale_fill_manual(values=cols,labels=c('Setosa','Verisicolor','Virginica'))+
       theme_classic()+
       theme(
-        text = element_text(size = 14, face='bold')
+        text = element_text(size = 14, face='bold'),
+        legend.position = ''
+      )
+    
+  })
+  
+  output$densityPlot3 <- renderPlot({
+    
+    ggplot(iris,aes(x=Petal.Length))+
+      geom_density(aes(fill=Species),alpha=0.5)+
+      geom_vline(aes(xintercept=input$Petal.Length),color='red',size=2)+
+      ggtitle('Petal Length')+
+      ylab('Density')+
+      xlab('Petal Length')+
+      scale_fill_manual(values=cols,labels=c('Setosa','Verisicolor','Virginica'))+
+      theme_classic()+
+      theme(
+        text = element_text(size = 14, face='bold'),
+        legend.position = ''
+      )
+    
+  })
+  
+  output$densityPlot4 <- renderPlot({
+    
+    ggplot(iris,aes(x=Petal.Width))+
+      geom_density(aes(fill=Species),alpha=0.5)+
+      geom_vline(aes(xintercept=input$Petal.Width),color='red',size=2)+
+      ggtitle('Petal Width')+
+      ylab('Density')+
+      xlab('Petal Width')+
+      scale_fill_manual(values=cols,labels=c('Setosa','Verisicolor','Virginica'))+
+      theme_classic()+
+      theme(
+        text = element_text(size = 14, face='bold'),
+        legend.position = ''
       )
     
   })
