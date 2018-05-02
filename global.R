@@ -2,7 +2,9 @@ library(tidyverse)
 library(xgboost)
 library(shiny)
 library(DT)
+library(Ckmeans.1d.dp)
 
+#install.packages('Ckmeans.1d.dp')
 
 calculate_xgb_preds<-
 function(var.levels,PredModel,testData){
@@ -88,7 +90,7 @@ if(!exists("Iris.model")){
   bst.cv$evaluation_log[nrounds] # determine which model bottoms it out
   
   
-  # builds the model at the round which was min mlogloss
+  # builds the model at the round which had min mlogloss
   Iris.model<- xgboost(param = params
                         , data = x, label = y
                         , nround = nrounds
@@ -115,9 +117,6 @@ if(!exists("Iris.model")){
 # 
 # 
 # predict(model,newdata=a)
-
-
-
 
 
 

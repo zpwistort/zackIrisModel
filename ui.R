@@ -9,8 +9,9 @@ shinyUI(fluidPage(
                     sidebarLayout(
                                     sidebarPanel(
 
+                                                   h4('Select Variables:')
                                                    
-                                                   selectInput('xcol', 
+                                                   ,selectInput('xcol', 
                                                                'X Variable', 
                                                                names(iris)[-length(names(iris))])
                                                    
@@ -20,18 +21,22 @@ shinyUI(fluidPage(
                                                                 selected=names(iris)[[2]]  # so they both dont start on the same variable
                                                                )
                                                    
+                                                   ,br()
+                                                   
+                                                   ,h4('Change Prediction Input:')
+                                                   
                                                    ,sliderInput("Sepal.Length",
                                                                 "Sepal.Length:",
                                                                 min = min(round(iris$Sepal.Length,1)),
                                                                 max = max(round(iris$Sepal.Length,1)),
-                                                                value = median(round(iris$Sepal.Length,1)),
+                                                                value = 6.7,
                                                                 step = 0.1)
                                                    
                                                    ,sliderInput("Sepal.Width",
                                                                 "Sepal.Width:",
                                                                 min = min(round(iris$Sepal.Width,1)),
                                                                 max = max(round(iris$Sepal.Width,1)),
-                                                                value = median(round(iris$Sepal.Width,1)),
+                                                                value = 3.9,
                                                                 step = 0.1)
                                                    
                                                    ,sliderInput("Petal.Length",
@@ -53,17 +58,33 @@ shinyUI(fluidPage(
                       
                       # Show a plot of the generated points
                                     mainPanel(
-                                      
+                                        
+                                        img(src='irisImg.jpg', width='24%',align = "right")
+                                        
+                                        ,br()
+                                        ,br()
+                                        ,br()
                                 
-                                        # Output: Tabset w/ plot, summary, and table ----
-                                        tabsetPanel(type = "tabs",
-                                                    tabPanel("Plot",br(),
-                                                                    plotOutput("irisPlot"),
+                                        # Three tabs: Interactive Plot, Summary, and Data table
+                                        ,tabsetPanel(type = "tabs"
+                                                    ,tabPanel("Plot",br(),
+                                                                    dataTableOutput("table"),
                                                                     br(),
-                                                                    dataTableOutput("table")),
-                                                    tabPanel("Data",br(),
+                                                                    plotOutput("irisPlot"))
+                                                    
+                                                    ,tabPanel("Summary",
+                                                                    br(),
+                                                                    fluidRow(column(width=6, plotOutput('densityPlot1')),
+                                                                             column(width=6, plotOutput('densityPlot2'))),
+                                                                    br(),
+                                                                    fluidRow(column(width=12,plotOutput("importancePlot"))))
+                                                    
+                                                    ,tabPanel("Data",br(),
                                                                     DTOutput("data"))
                                         )
+                                        ,br()
+                                        ,br()
+                                        ,br()
                                 
                                     
                                     )
